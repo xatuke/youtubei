@@ -81,7 +81,7 @@ web_modules/
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+# dist is included in dist-fix branch for direct GitHub installs
 
 # Gatsby files
 .cache/
