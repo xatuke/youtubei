@@ -1,0 +1,69 @@
+import { Thumbnails, YoutubeRawData } from "../../common";
+import { Base, BaseProperties } from "../Base";
+import { BaseChannel } from "../BaseChannel";
+import { PlaylistCompact } from "../PlaylistCompact";
+import { VideoCompact } from "../VideoCompact";
+import { VideoCaptions } from "./VideoCaptions";
+import { VideoRelated } from "./VideoRelated";
+/** @hidden */
+export interface BaseVideoProperties extends BaseProperties {
+    id?: string;
+    title?: string;
+    thumbnails?: Thumbnails;
+    description?: string;
+    channel?: BaseChannel | null;
+    uploadDate?: string;
+    viewCount?: number | null;
+    likeCount?: number | null;
+    isLiveContent?: boolean;
+    tags?: string[];
+    formats?: YoutubeRawData[];
+    adaptiveFormats?: YoutubeRawData[];
+}
+/** Represents a Video  */
+export declare class BaseVideo extends Base implements BaseVideoProperties {
+    id: string;
+    /** The title of this video */
+    title: string;
+    /** Thumbnails of the video with different sizes */
+    thumbnails: Thumbnails;
+    /** The description of this video */
+    description: string;
+    /** The channel that uploaded this video */
+    channel: BaseChannel | null;
+    /** The collaborators of this video */
+    channels: BaseChannel[] | null;
+    /** The date this video is uploaded at */
+    uploadDate: string;
+    /** How many view does this video have, null if the view count is hidden */
+    viewCount: number | null;
+    /** How many like does this video have, null if the like count is hidden */
+    likeCount: number | null;
+    /** Whether this video is a live content or not */
+    isLiveContent: boolean;
+    /** The tags of this video */
+    /** The formats of the video */
+    formats: YoutubeRawData[];
+    /** The adaptive formats of the video */
+    adaptiveFormats: YoutubeRawData[];
+    tags: string[];
+    /** Continuable of videos / playlists related to this video  */
+    related: VideoRelated;
+    /** Captions helper class of this video (if caption exists in this video) */
+    captions: VideoCaptions | null;
+    /** @hidden */
+    constructor(attr: BaseVideoProperties);
+    /**
+     * Load this instance with raw data from Youtube
+     *
+     * @hidden
+     */
+    load(data: YoutubeRawData): BaseVideo;
+    /**
+     * Video / playlist to play next after this video, alias to
+     * ```js
+     * video.related.items[0]
+     * ```
+     */
+    get upNext(): VideoCompact | PlaylistCompact;
+}
